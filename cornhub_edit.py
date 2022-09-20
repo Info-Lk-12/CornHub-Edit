@@ -20,7 +20,7 @@ class CornHubEdit(Tk):
         self.config(menu=self.menu)
         self.bind('<Control-s>', lambda e: self.saveFile())
         self.text_area.bind('<Button-3>', self.context_menu)
-        
+
         self.__init_listeners()
 
         self.__file = None
@@ -46,7 +46,7 @@ class CornHubEdit(Tk):
 
     def saveAsFile(self):
         file = filedialog.asksaveasfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
-        if file != '':
+        if type(file) is str and file != '':
             self.__file = file
             with open(file, 'w') as f:
                 data = self.text_area.get('1.0', END)
