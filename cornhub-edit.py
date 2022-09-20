@@ -5,6 +5,7 @@ from tkinter import filedialog
 
 file = None
 
+
 def openFile():
     global file
     file = filedialog.askopenfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
@@ -14,6 +15,7 @@ def openFile():
         text_area.delete('1.0', END)
         text_area.insert(END, data)
 
+
 def saveAsFile():
     global file
     file = filedialog.asksaveasfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
@@ -21,6 +23,7 @@ def saveAsFile():
         with open(file, 'w') as f:
             data = text_area.get('1.0', END)
             f.write(data)
+
 
 def saveFile():
     global file
@@ -31,8 +34,10 @@ def saveFile():
             data = text_area.get('1.0', END)
             f.write(data)
 
+
 def clickMenu(event):
     clickmenu.tk_popup(event.x_root, event.y_root)
+
 
 def cut():
     text = text_area.selection_get()
@@ -44,6 +49,7 @@ def cut():
     
     root.clipboard_clear()
     root.clipboard_append(text)
+
 
 def copy():
     text = text_area.selection_get()
