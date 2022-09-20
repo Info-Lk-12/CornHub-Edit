@@ -7,18 +7,33 @@ from menu import AppMenu, ContextMenu
 
 class CornHubEdit(Tk):
     def __init__(self):
-        super().__init__("CornHub")
+        super().__init__()
         self.title("Cornhub Edit")
         self.geometry("960x540")
 
         self.text_area = ScrolledText(self, height=35, undo=True)
         self.text_area.pack(fill=BOTH, expand=True)
 
-        self.config(menu=AppMenu(self))
+        self.menu = AppMenu(self)
+        self.click_menu = ContextMenu(self.text_area)
+
+        self.config(menu=self.menu)
         self.bind('<Control-s>', lambda e: self.saveFile())
-        self.text_area.bind('<Button-3>', ContextMenu(self.text_area))
+        self.text_area.bind('<Button-3>', self.context_menu)
+        
+        self.__init_listeners()
 
         self.__file = None
+
+    def __init_listeners(self):
+        self.menu.add_listener('open', self.openFile)
+        self.menu.add_listener('save', self.saveFile)
+        self.menu.add_listener('save_as', self.saveAsFile)
+        self.menu.add_listener('exit', self.destroy)
+
+        self.click_menu.add_listener('cut', self.cut)
+        self.click_menu.add_listener('copy', self.copy)
+        self.click_menu.add_listener('paste', self.paste)
 
     def openFile(self):
         file = filedialog.askopenfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
@@ -45,9 +60,8 @@ class CornHubEdit(Tk):
                 data = self.text_area.get('1.0', END)
                 f.write(data)
 
-    def clickMenu(event):
-        clickmenu.tk_popup(event.x_root, event.y_root)
-
+    def context_menu(self, event):
+        self.click_menu.tk_popup(event.x_root, event.y_root)
 
     def cut(self):
         text = self.text_area.selection_get()
