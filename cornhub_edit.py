@@ -20,7 +20,7 @@ class CornHubEdit(Tk):
         self.config(menu=self.menu)
         self.bind('<Control-s>', lambda e: self.saveFile())
         self.text_area.bind('<Button-3>', self.context_menu)
-
+        self.iconbitmap('cornhubeditlogofinal.ico')
         self.__init_listeners()
 
         self.__file = None
