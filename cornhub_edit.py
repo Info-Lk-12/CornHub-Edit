@@ -31,6 +31,8 @@ class CornHubEdit(Tk):
         self.menu.add_listener('save', self.saveFile)
         self.menu.add_listener('save_as', self.saveAsFile)
         self.menu.add_listener('exit', self.destroy)
+        
+        self.menu.add_listener('email', lambda: self.text_area.insert(END,'email'))
 
         self.click_menu.add_listener('cut', self.cut)
         self.click_menu.add_listener('copy', self.copy)
