@@ -8,7 +8,7 @@ from menu import AppMenu, ContextMenu
 class CornHubEdit(Tk):
     def __init__(self):
         super().__init__()
-        self.title("untitled")
+        self.title("untitled - Cornhub Edit")
         self.geometry("960x540")
 
         self.text_area = ScrolledText(self, height=35, undo=True)
@@ -26,6 +26,7 @@ class CornHubEdit(Tk):
         self.__file = None
 
     def __init_listeners(self):
+        self.menu.add_listener('new', self.newFile)
         self.menu.add_listener('open', self.openFile)
         self.menu.add_listener('save', self.saveFile)
         self.menu.add_listener('save_as', self.saveAsFile)
@@ -34,14 +35,19 @@ class CornHubEdit(Tk):
         self.click_menu.add_listener('cut', self.cut)
         self.click_menu.add_listener('copy', self.copy)
         self.click_menu.add_listener('paste', self.paste)
-
+    
+    def newFile(self):
+        self.text_area.delete('1.0', END)
+        self.__file = None
+        self.title('untitled - Cornhub Edit')
+    
     def openFile(self):
         file = filedialog.askopenfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
         if file != '':
             self.__file = file
             with open(file, 'r') as f:
                 data = f.read()
-                self.title(f.name)
+                self.title(f.name + ' - Cornhub Edit')
             self.text_area.delete('1.0', END)
             self.text_area.insert(END, data)
 
@@ -49,7 +55,7 @@ class CornHubEdit(Tk):
         file = filedialog.asksaveasfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
         if type(file) is str and file != '':
             self.__file = file
-            self.title(file)
+            self.title(file + ' - Cornhub Edit')
             with open(file, 'w') as f:
                 data = self.text_area.get('1.0', END)
                 f.write(data)

@@ -43,7 +43,8 @@ class AppMenu(_ListenerMenu):
 
         filemenu = BasicMenu(self)
         filemenu.attatch_listener(self._call_listeners)
-
+        
+        filemenu.add_btn('new', 'New File')
         filemenu.add_btn('open', 'Open')
         filemenu.add_btn('save', 'Save')
         filemenu.add_btn('save_as', 'Save As')
