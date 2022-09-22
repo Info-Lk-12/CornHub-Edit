@@ -41,6 +41,7 @@ class CornHubEdit(Tk):
             self.__file = file
             with open(file, 'r') as f:
                 data = f.read()
+                self.title(f.name)
             self.text_area.delete('1.0', END)
             self.text_area.insert(END, data)
 
@@ -48,6 +49,7 @@ class CornHubEdit(Tk):
         file = filedialog.asksaveasfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
         if type(file) is str and file != '':
             self.__file = file
+            self.title(file)
             with open(file, 'w') as f:
                 data = self.text_area.get('1.0', END)
                 f.write(data)
