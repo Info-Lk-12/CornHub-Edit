@@ -49,8 +49,13 @@ class AppMenu(_ListenerMenu):
         filemenu.add_btn('save', 'Save')
         filemenu.add_btn('save_as', 'Save As')
         filemenu.add_btn('exit', 'Exit')
+        
+        snippets_menu = BasicMenu(self)
+        snippets_menu.add_btn('email','E-Mail')
+        snippets_menu.attach_listener(self._call_listeners)
 
         self.add_cascade(label="File", menu=filemenu)
+        self.add_cascade(label="Sinippets", menu=snippets_menu)
 
 
 class ContextMenu(_ListenerMenu):
