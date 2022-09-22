@@ -8,7 +8,7 @@ from menu import AppMenu, ContextMenu
 class CornHubEdit(Tk):
     def __init__(self):
         super().__init__()
-        self.title("Cornhub Edit")
+        self.title("untitled")
         self.geometry("960x540")
 
         self.text_area = ScrolledText(self, height=35, undo=True)
