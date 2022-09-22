@@ -1,4 +1,5 @@
 import platform
+import threading
 
 from tkinter import *
 from tkinter.scrolledtext import ScrolledText
@@ -11,8 +12,11 @@ from menu import AppMenu, ContextMenu
 
 
 def play_a_sound(sound):
-    if platform.system() == "Windows":
+    def play_win():
         PlaySound(sound, SND_FILENAME)
+
+    if platform.system() == "Windows":
+        threading.Thread(target=play_win, daemon=True).start()
 
 
 class CornHubEdit(Tk):
