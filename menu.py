@@ -29,7 +29,7 @@ class BasicMenu(Menu):
     def add_btn(self, name, label, *args, **kwargs):
         self.add_command(label=label, command=lambda: self.__call_listener(name), *args, **kwargs)
 
-    def attatch_listener(self, listener):
+    def attach_listener(self, listener):
         self.listener = listener
 
     def __call_listener(self, event):
@@ -42,7 +42,7 @@ class AppMenu(_ListenerMenu):
         super().__init__(master)
 
         filemenu = BasicMenu(self)
-        filemenu.attatch_listener(self._call_listeners)
+        filemenu.attach_listener(self._call_listeners)
         
         filemenu.add_btn('new', 'New File')
         filemenu.add_btn('open', 'Open')
