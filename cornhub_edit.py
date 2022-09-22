@@ -4,7 +4,15 @@ from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter import filedialog
 
+if platform.system() == "Windows":
+    from winsound import PlaySound, SND_FILENAME
+
 from menu import AppMenu, ContextMenu
+
+
+def play_a_sound(sound):
+    if platform.system() == "Windows":
+        PlaySound(sound, SND_FILENAME)
 
 
 class CornHubEdit(Tk):
@@ -24,7 +32,7 @@ class CornHubEdit(Tk):
 
         if platform.system() == "Windows":
             self.iconbitmap('cornhubeditlogofinal.ico')
-            
+
         self.text_area.bind('<Button-3>', self.context_menu)
         self.__init_listeners()
 
@@ -105,7 +113,7 @@ class CornHubEdit(Tk):
 
 
 if __name__ == '__main__':
-    PlaySound('phintro.wav', SND_FILENAME)
+    play_a_sound('phintro.wav')
     app = CornHubEdit()
     app.mainloop()
-    PlaySound('phintro.wav', SND_FILENAME)
+    play_a_sound('phintro.wav')
