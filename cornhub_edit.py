@@ -54,13 +54,23 @@ class CornHubEdit(Tk):
         self.click_menu.add_listener('cut', self.cut)
         self.click_menu.add_listener('copy', self.copy)
         self.click_menu.add_listener('paste', self.paste)
+
+        self.bind("<Control-n>", self.newFile)
+        self.bind("<Control-o>", self.openFile)
+        self.bind("<Control-s>", self.saveFile)
+        self.bind("<Control-Shift-s>", self.saveAsFile)
+        self.bind("<Alt-F4>", self.quit)
+
+        self.bind("<Control-x>", self.cut)
+        self.bind("<Control-c>", self.copy)
+        self.bind("<Control-v>", self.paste)
     
-    def newFile(self):
+    def newFile(self, *e):
         self.text_area.delete('1.0', END)
         self.__file = None
         self.title('untitled - Cornhub Edit')
     
-    def openFile(self):
+    def openFile(self, *e):
         file = filedialog.askopenfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
         if file != '':
             self.__file = file
@@ -70,7 +80,7 @@ class CornHubEdit(Tk):
             self.text_area.delete('1.0', END)
             self.text_area.insert(END, data)
 
-    def saveAsFile(self):
+    def saveAsFile(self, *e):
         file = filedialog.asksaveasfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
         if type(file) is str and file != '':
             self.__file = file
@@ -79,7 +89,7 @@ class CornHubEdit(Tk):
                 data = self.text_area.get('1.0', END)
                 f.write(data)
 
-    def saveFile(self):
+    def saveFile(self, *e):
         if self.__file is None:
             self.saveAsFile()
         else:
@@ -90,7 +100,7 @@ class CornHubEdit(Tk):
     def context_menu(self, event):
         self.click_menu.tk_popup(event.x_root, event.y_root)
 
-    def cut(self):
+    def cut(self, *e):
         text = self.text_area.selection_get()
 
         start = self.text_area.index('sel.first')
@@ -102,12 +112,12 @@ class CornHubEdit(Tk):
         self.clipboard_append(text)
 
 
-    def copy(self):
+    def copy(self, *e):
         text = self.text_area.selection_get()
         self.clipboard_clear()
         self.clipboard_append(text)
 
-    def paste(self):
+    def paste(self, *e):
         text = self.clipboard_get()
         if self.text_area.tag_ranges("sel"):
             start = self.text_area.index('sel.first')
