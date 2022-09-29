@@ -131,4 +131,4 @@ if __name__ == '__main__':
     play_a_sound('phintro.wav', 'edittt.wav')
     app = CornHubEdit()
     app.mainloop()
-    play_a_sound('phintro.wav')
+    play_a_sound('phoutro.wav')
