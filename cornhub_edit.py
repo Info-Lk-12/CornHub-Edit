@@ -17,7 +17,7 @@ def play_a_sound(*sound):
             PlaySound(s, SND_FILENAME)
 
     if platform.system() == "Windows":
-        threading.Thread(target=play_win, daemon=True).start()
+        threading.Thread(target=play_win, daemon=False).start()
 
 
 class CornHubEdit(Tk):
