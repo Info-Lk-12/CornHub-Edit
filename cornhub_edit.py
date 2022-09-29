@@ -3,7 +3,7 @@ import threading
 
 from tkinter import *
 from tkinter.scrolledtext import ScrolledText
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 if platform.system() == "Windows":
     from winsound import PlaySound, SND_FILENAME
@@ -70,7 +70,7 @@ class CornHubEdit(Tk):
     
     def newFile(self, *e):
         if self.check_file != self.text_area.get('1.0', END):
-            if askyesno('Close without Save', 'Do you want to close the current file without saving?') == False:
+            if messagebox.askyesno('Close without Save', 'Do you want to close the current file without saving?') == False:
                 return
         self.text_area.delete('1.0', END)
         self.check_file = self.text_area.get('1.0', END)
@@ -79,7 +79,7 @@ class CornHubEdit(Tk):
     
     def openFile(self, *e):
         if self.check_file != self.text_area.get('1.0', END):
-            if askyesno('Close without Save', 'Do you want to close the current file without saving?') == False:
+            if messagebox.askyesno('Close without Save', 'Do you want to close the current file without saving?') == False:
                 return
         file = filedialog.askopenfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
         if type(file) is str and file != '':
