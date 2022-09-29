@@ -42,6 +42,8 @@ class CornHubEdit(Tk):
         self.__init_listeners()
 
         self.__file = None
+        
+        self.check_file = self.text_area.get('1.0', END)
 
     def __init_listeners(self):
         self.menu.add_listener('new', self.newFile)
@@ -67,11 +69,18 @@ class CornHubEdit(Tk):
         self.bind("<Control-v>", self.paste)
     
     def newFile(self, *e):
+        if self.check_file != self.text_area.get('1.0', END):
+            if askyesno('Close without Save', 'Do you want to close the current file without saving?') == False:
+                return
         self.text_area.delete('1.0', END)
+        self.check_file = self.text_area.get('1.0', END)
         self.__file = None
         self.title('untitled - Cornhub Edit')
     
     def openFile(self, *e):
+        if self.check_file != self.text_area.get('1.0', END):
+            if askyesno('Close without Save', 'Do you want to close the current file without saving?') == False:
+                return
         file = filedialog.askopenfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
         if type(file) is str and file != '':
             self.__file = file
@@ -80,6 +89,7 @@ class CornHubEdit(Tk):
                 self.title(f.name + ' - Cornhub Edit')
             self.text_area.delete('1.0', END)
             self.text_area.insert(END, data)
+            self.check_file = self.text_area.get('1.0', END)
 
     def saveAsFile(self, *e):
         file = filedialog.asksaveasfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
@@ -89,6 +99,7 @@ class CornHubEdit(Tk):
             with open(file, 'w') as f:
                 data = self.text_area.get('1.0', END)
                 f.write(data)
+                self.check_file = self.text_area.get('1.0', END)
 
     def saveFile(self, *e):
         if self.__file is None:
@@ -97,6 +108,7 @@ class CornHubEdit(Tk):
             with open(self.__file, 'w') as f:
                 data = self.text_area.get('1.0', END)
                 f.write(data)
+                self.check_file = self.text_area.get('1.0', END)
 
     def context_menu(self, event):
         self.click_menu.tk_popup(event.x_root, event.y_root)
