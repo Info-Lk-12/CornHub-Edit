@@ -9,6 +9,7 @@ if platform.system() == "Windows":
     from winsound import PlaySound, SND_FILENAME
 
 from menu import AppMenu, ContextMenu
+from snippets import snippets
 
 
 def play_a_sound(*sound):
@@ -52,7 +53,7 @@ class CornHubEdit(Tk):
         self.menu.add_listener('save_as', self.saveAsFile)
         self.menu.add_listener('exit', self.destroy)
         
-        self.menu.add_listener('email', lambda: self.text_area.insert(END,'email'))
+        self.menu.add_listener('email', lambda: self.load_template("email"))
 
         self.click_menu.add_listener('cut', self.cut)
         self.click_menu.add_listener('copy', self.copy)
@@ -67,6 +68,9 @@ class CornHubEdit(Tk):
         self.bind("<Control-x>", self.cut)
         self.bind("<Control-c>", self.copy)
         self.bind("<Control-v>", self.paste)
+
+    def load_template(self, template):
+        self.text_area.insert(END, snippets[template])
     
     def newFile(self, *e):
         if self.check_file != self.text_area.get('1.0', END):

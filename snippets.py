@@ -1,5 +1,9 @@
 snippets = {
-    "email": """
-        Das ist eine E-Mail
+    "email": """Sehr geehrte Damen und Herren,
+
+<Email content>
+
+Mit vielen Grüßen,
+<Subject Name Here>
     """
 }
