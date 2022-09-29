@@ -55,7 +55,7 @@ class AppMenu(_ListenerMenu):
         snippets_menu.attach_listener(self._call_listeners)
 
         self.add_cascade(label="File", menu=filemenu)
-        self.add_cascade(label="Sinippets", menu=snippets_menu)
+        self.add_cascade(label="Snippets", menu=snippets_menu)
 
 
 class ContextMenu(_ListenerMenu):
