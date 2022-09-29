@@ -128,7 +128,7 @@ class CornHubEdit(Tk):
 
 
 if __name__ == '__main__':
-    play_a_sound('phintro.wav', 'edittt.wav')
+    play_a_sound('phintro.wav')
     app = CornHubEdit()
     app.mainloop()
     play_a_sound('phoutro.wav')
