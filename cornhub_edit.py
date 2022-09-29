@@ -11,9 +11,10 @@ if platform.system() == "Windows":
 from menu import AppMenu, ContextMenu
 
 
-def play_a_sound(sound):
+def play_a_sound(*sound):
     def play_win():
-        PlaySound(sound, SND_FILENAME)
+        for s in sound:
+            PlaySound(s, SND_FILENAME)
 
     if platform.system() == "Windows":
         threading.Thread(target=play_win, daemon=True).start()
@@ -72,7 +73,7 @@ class CornHubEdit(Tk):
     
     def openFile(self, *e):
         file = filedialog.askopenfilename(filetypes=[('Text Files', '*.txt')], defaultextension="*.txt")
-        if file != '':
+        if type(file) is str and file != '':
             self.__file = file
             with open(file, 'r') as f:
                 data = f.read()
@@ -127,8 +128,7 @@ class CornHubEdit(Tk):
 
 
 if __name__ == '__main__':
-    play_a_sound('phintro.wav')
-    play_a_sound('edittt.wav')
+    play_a_sound('phintro.wav', 'edittt.wav')
     app = CornHubEdit()
     app.mainloop()
     play_a_sound('phintro.wav')
