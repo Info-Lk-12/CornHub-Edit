@@ -118,29 +118,32 @@ class CornHubEdit(Tk):
         self.click_menu.tk_popup(event.x_root, event.y_root)
 
     def cut(self, *e):
-        text = self.text_area.selection_get()
+        if self.text_area.tag_ranges("sel"):
+            text = self.text_area.selection_get()
 
-        start = self.text_area.index('sel.first')
-        end = self.text_area.index('sel.last')
+            start = self.text_area.index('sel.first')
+            end = self.text_area.index('sel.last')
 
-        self.text_area.delete(start, end)
+            self.text_area.delete(start, end)
         
-        self.clipboard_clear()
-        self.clipboard_append(text)
+            self.clipboard_clear()
+            self.clipboard_append(text)
 
 
     def copy(self, *e):
-        text = self.text_area.selection_get()
-        self.clipboard_clear()
-        self.clipboard_append(text)
+        if self.text_area.tag_ranges("sel"):
+            text = self.text_area.selection_get()
+            self.clipboard_clear()
+            self.clipboard_append(text)
 
     def paste(self, *e):
-        text = self.clipboard_get()
         if self.text_area.tag_ranges("sel"):
-            start = self.text_area.index('sel.first')
-            end = self.text_area.index('sel.last')
-            self.text_area.delete(start, end)
-        self.text_area.insert(END, text)
+            text = self.clipboard_get()
+            if self.text_area.tag_ranges("sel"):
+                start = self.text_area.index('sel.first')
+                end = self.text_area.index('sel.last')
+                self.text_area.delete(start, end)
+            self.text_area.insert(END, text)
 
 
 if __name__ == '__main__':
